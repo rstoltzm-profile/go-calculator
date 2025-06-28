@@ -168,6 +168,46 @@ func TestFlags(t *testing.T) {
 			t.Errorf("got %q want %q", got, want)
 		}
 	})
+	t.Run("Check for invalid inputs to num1", func(t *testing.T) {
+		origArgs := os.Args
+		defer func() { os.Args = origArgs }()
+		os.Args = []string{
+			"test",
+			"--num1=badInput",
+			"--num2=2",
+			"--oper=add",
+		}
+		_, _, _, err := parseInputs()
+		got := err
+		want := fmt.Errorf("invalid value \"badInput\" for flag -num1: parse error")
+		if err == nil {
+			t.Fatalf("expected error but got nil")
+		}
+
+		if got.Error() != want.Error() {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
+	t.Run("Check for invalid inputs to num2", func(t *testing.T) {
+		origArgs := os.Args
+		defer func() { os.Args = origArgs }()
+		os.Args = []string{
+			"test",
+			"--num1=1",
+			"--num2=badinput",
+			"--oper=add",
+		}
+		_, _, _, err := parseInputs()
+		got := err
+		want := fmt.Errorf("invalid value \"badinput\" for flag -num2: parse error")
+		if err == nil {
+			t.Fatalf("expected error but got nil")
+		}
+
+		if got.Error() != want.Error() {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
 }
 
 func TestAdd(t *testing.T) {
