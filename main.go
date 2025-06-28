@@ -8,8 +8,22 @@ import (
 
 func main() {
 	fmt.Println("GO Calculator App")
+	// Parse Inputs
 	a, b, o, err := parseInputs()
-	fmt.Println(a, b, o, err)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	fmt.Println("Oper:   ", o)
+	fmt.Println("Inputs: ", a, b)
+
+	// Operate and get output
+	output, err := operInputs(a, b, o)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	fmt.Println("Output:", output)
 }
 
 func parseInputs() (int, int, string, error) {
@@ -42,4 +56,35 @@ func parseInputs() (int, int, string, error) {
 
 	return *a, *b, *o, nil
 
+}
+
+func operInputs(a int, b int, oper string) (int, error) {
+	var result int
+	switch oper {
+	case "add":
+		result = addInputs(a, b)
+	case "sub":
+		result = subInputs(a, b)
+	case "mult":
+		result = multInputs(a, b)
+	case "div":
+		result = divInputs(a, b)
+	}
+	return result, nil
+}
+
+func addInputs(a int, b int) int {
+	return a + b
+}
+
+func subInputs(a int, b int) int {
+	return a - b
+}
+
+func multInputs(a int, b int) int {
+	return a * b
+}
+
+func divInputs(a int, b int) int {
+	return a / b
 }
