@@ -20,7 +20,6 @@ run-name: calc ${{inputs.oper}} ${{inputs.num1}} and ${{inputs.num2}} run by @${
 
 jobs: 
   run-app:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
