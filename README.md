@@ -1,6 +1,7 @@
 # cli go-calculator
 
 * A simple calculator written in Go that supports addition, subtraction, multiplication, and division.
+* Project is focused on TDD, app design, and basic go CLI functionality.
 
 ## Inputs
 | Name | Type | Description |
