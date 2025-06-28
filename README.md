@@ -1,9 +1,8 @@
-# cli go-calculator
+# Go Calculator CLI
+[![Go CI](https://github.com/rstoltzm-profile/go-calculator/actions/workflows/ci.yml/badge.svg)](https://github.com/rstoltzm-profile/go-calculator/actions/workflows/ci.yml)
 * A simple calculator written in Go that supports addition, subtraction, multiplication, and division.
 * Project is focused on TDD, app design, basic go CLI functionality, and CICD
 * See branches for code evolution and design changes.
-
-[![Go CI](https://github.com/rstoltzm-profile/go-calculator/actions/workflows/ci.yml/badge.svg)](https://github.com/rstoltzm-profile/go-calculator/actions/workflows/ci.yml)
 
 ## Inputs
 | Name | Type | Description |
