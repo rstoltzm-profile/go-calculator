@@ -3,7 +3,7 @@
 * Project is focused on TDD, app design, basic go CLI functionality, and CICD
 * See branches for code evolution and design changes.
 
-![Workflow Dispatch](docs/4-run-workflow.png)
+
 
 ## Inputs
 | Name | Type | Description |
@@ -12,7 +12,13 @@
 | `--num2` | `int` | Second number for the operation |
 | `--oper` | `string` | Operation to perform: `add`, `sub`, `mult`, or `div` |
 
-## Make
+## CICD
+### Inputs
+![Workflow Dispatch](docs/4-run-workflow.png)
+### Workflow Run
+![CICD](docs/4-build-art-run.png)
+
+## Makefile
 ### Build
 To build the application, run:
 ```base
@@ -24,9 +30,6 @@ To build the application, run:
 ```base
 make test
 ```
-
-### CICD
-![CICD](docs/4-build-art-run.png)
 
 ## Example
 
