@@ -9,8 +9,12 @@ import (
 func main() {
 	fmt.Println("GO Calculator App")
 	a, b, o, err := parseInputs()
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
 	fmt.Println(a, b, o, err)
-	addInputs(a, b)
+	operInputs(a, b, o)
 }
 
 func parseInputs() (int, int, string, error) {
@@ -43,6 +47,10 @@ func parseInputs() (int, int, string, error) {
 
 	return *a, *b, *o, nil
 
+}
+
+func operInputs(a int, b int, oper string) int {
+	return 0
 }
 
 func addInputs(a int, b int) int {
