@@ -46,5 +46,5 @@ func parseInputs() (int, int, string, error) {
 }
 
 func addInputs(a int, b int) int {
-	return 0
+	return a + b
 }
