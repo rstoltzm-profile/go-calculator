@@ -170,7 +170,13 @@ func TestFlags(t *testing.T) {
 	})
 	t.Run("Check for invalid inputs to num1", func(t *testing.T) {
 		origArgs := os.Args
-		defer func() { os.Args = origArgs }()
+		origStderr := os.Stderr
+		defer func() {
+			os.Args = origArgs
+			os.Stderr = origStderr
+		}()
+		_, w, _ := os.Pipe()
+		os.Stderr = w
 		os.Args = []string{
 			"test",
 			"--num1=badInput",
@@ -178,6 +184,7 @@ func TestFlags(t *testing.T) {
 			"--oper=add",
 		}
 		_, _, _, err := parseInputs()
+		w.Close() // close the writer to avoid leaks
 		got := err
 		want := fmt.Errorf("invalid value \"badInput\" for flag -num1: parse error")
 		if err == nil {
@@ -190,7 +197,13 @@ func TestFlags(t *testing.T) {
 	})
 	t.Run("Check for invalid inputs to num2", func(t *testing.T) {
 		origArgs := os.Args
-		defer func() { os.Args = origArgs }()
+		origStderr := os.Stderr
+		defer func() {
+			os.Args = origArgs
+			os.Stderr = origStderr
+		}()
+		_, w, _ := os.Pipe()
+		os.Stderr = w
 		os.Args = []string{
 			"test",
 			"--num1=1",
@@ -198,6 +211,7 @@ func TestFlags(t *testing.T) {
 			"--oper=add",
 		}
 		_, _, _, err := parseInputs()
+		w.Close()
 		got := err
 		want := fmt.Errorf("invalid value \"badinput\" for flag -num2: parse error")
 		if err == nil {
