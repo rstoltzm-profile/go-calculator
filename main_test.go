@@ -34,7 +34,7 @@ func TestMain(t *testing.T) {
 		}
 	})
 
-	t.Run("Check main --oper add", func(t *testing.T) {
+	t.Run("Check main 1+2=3", func(t *testing.T) {
 		origArgs := os.Args
 		defer func() { os.Args = origArgs }()
 		os.Args = []string{
@@ -53,8 +53,8 @@ func TestMain(t *testing.T) {
 		io.Copy(&buf, r)
 
 		output := buf.String()
-		if !strings.Contains(output, "Output: 2") {
-			t.Errorf("expected output to contain 'Output: 2', got %q", output)
+		if !strings.Contains(output, "Output: 3") {
+			t.Errorf("expected output to contain 'Output: 3', got %q", output)
 		}
 	})
 }

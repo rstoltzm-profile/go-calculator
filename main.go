@@ -23,7 +23,7 @@ func main() {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	fmt.Println("Output: ", output)
+	fmt.Println("Output:", output)
 }
 
 func parseInputs() (int, int, string, error) {
@@ -59,7 +59,12 @@ func parseInputs() (int, int, string, error) {
 }
 
 func operInputs(a int, b int, oper string) (int, error) {
-	return 0, nil
+	var result int
+	switch oper {
+	case "add":
+		result = addInputs(a, b)
+	}
+	return result, nil
 }
 
 func addInputs(a int, b int) int {
