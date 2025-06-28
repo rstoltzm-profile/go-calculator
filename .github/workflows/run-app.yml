@@ -26,5 +26,5 @@ jobs:
 
     - name: run binary
       run: /
-        bin/go-calculator-linux --num1 "${{ inputs.num1 }}" --num2 "${{ inputs.num2 }}" --oper "${{ inputs.oper }}" 
+        ${{ github.workspace }}/bin/go-calculator-linux --num1 "${{ inputs.num1 }}" --num2 "${{ inputs.num2 }}" --oper "${{ inputs.oper }}" 
 
