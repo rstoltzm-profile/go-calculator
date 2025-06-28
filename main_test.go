@@ -21,6 +21,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -45,6 +47,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -68,6 +72,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -92,6 +98,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -116,6 +124,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
