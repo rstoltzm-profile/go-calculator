@@ -178,12 +178,26 @@ func TestAdd(t *testing.T) {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
+	t.Run("Add: 1 + -5", func(t *testing.T) {
+		got := addInputs(1, -5)
+		want := -4
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
 }
 
 func TestSub(t *testing.T) {
 	t.Run("Sub: 1 - 1", func(t *testing.T) {
 		got := subInputs(1, 1)
 		want := 0
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Sub: 1 - -2", func(t *testing.T) {
+		got := subInputs(1, -2)
+		want := 3
 		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}
