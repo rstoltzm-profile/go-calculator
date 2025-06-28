@@ -21,6 +21,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -45,6 +47,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -68,6 +72,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -92,6 +98,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -116,6 +124,8 @@ func TestMain(t *testing.T) {
 		}
 
 		// create a pipe to capture stdout
+		origStdout := os.Stdout
+		defer func() { os.Stdout = origStdout }()
 		r, w, _ := os.Pipe()
 		os.Stdout = w
 		main()
@@ -168,12 +178,73 @@ func TestFlags(t *testing.T) {
 			t.Errorf("got %q want %q", got, want)
 		}
 	})
+	t.Run("Check for invalid inputs to num1", func(t *testing.T) {
+		origArgs := os.Args
+		origStderr := os.Stderr
+		defer func() {
+			os.Args = origArgs
+			os.Stderr = origStderr
+		}()
+		_, w, _ := os.Pipe()
+		os.Stderr = w
+		os.Args = []string{
+			"test",
+			"--num1=badInput",
+			"--num2=2",
+			"--oper=add",
+		}
+		_, _, _, err := parseInputs()
+		w.Close() // close the writer to avoid leaks
+		got := err
+		want := fmt.Errorf("invalid value \"badInput\" for flag -num1: parse error")
+		if err == nil {
+			t.Fatalf("expected error but got nil")
+		}
+
+		if got.Error() != want.Error() {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
+	t.Run("Check for invalid inputs to num2", func(t *testing.T) {
+		origArgs := os.Args
+		origStderr := os.Stderr
+		defer func() {
+			os.Args = origArgs
+			os.Stderr = origStderr
+		}()
+		_, w, _ := os.Pipe()
+		os.Stderr = w
+		os.Args = []string{
+			"test",
+			"--num1=1",
+			"--num2=badinput",
+			"--oper=add",
+		}
+		_, _, _, err := parseInputs()
+		w.Close()
+		got := err
+		want := fmt.Errorf("invalid value \"badinput\" for flag -num2: parse error")
+		if err == nil {
+			t.Fatalf("expected error but got nil")
+		}
+
+		if got.Error() != want.Error() {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
 }
 
 func TestAdd(t *testing.T) {
 	t.Run("Add: 1 + 1", func(t *testing.T) {
 		got := addInputs(1, 1)
 		want := 2
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Add: 1 + -5", func(t *testing.T) {
+		got := addInputs(1, -5)
+		want := -4
 		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}
@@ -188,6 +259,13 @@ func TestSub(t *testing.T) {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
+	t.Run("Sub: 1 - -2", func(t *testing.T) {
+		got := subInputs(1, -2)
+		want := 3
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
 }
 
 func TestMult(t *testing.T) {
@@ -198,12 +276,33 @@ func TestMult(t *testing.T) {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
+	t.Run("Mult: 0 * 1", func(t *testing.T) {
+		got := multInputs(0, 1)
+		want := 0
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
 }
 
 func TestDiv(t *testing.T) {
 	t.Run("Div: 1 / 1", func(t *testing.T) {
-		got := divInputs(1, 1)
+		got, _ := divInputs(1, 1)
 		want := 1
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Div: 1 / 0", func(t *testing.T) {
+		_, got := divInputs(1, 0)
+		want := fmt.Errorf(ErrorDivideByZero)
+		if got.Error() != want.Error() {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Div: 0 / 1", func(t *testing.T) {
+		got, _ := divInputs(0, 1)
+		want := 0
 		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}

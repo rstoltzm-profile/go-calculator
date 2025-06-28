@@ -15,3 +15,6 @@ test:
 
 clean:
 	rm -f bin/$(BINARY)-windows.exe main.go bin/$(BINARY)-linux main.go
+
+test-bin: build-linux
+	./test-go-calculator-cli.sh
