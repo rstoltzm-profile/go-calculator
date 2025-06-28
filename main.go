@@ -63,6 +63,12 @@ func operInputs(a int, b int, oper string) (int, error) {
 	switch oper {
 	case "add":
 		result = addInputs(a, b)
+	case "sub":
+		result = subInputs(a, b)
+	case "mult":
+		result = multInputs(a, b)
+	case "div":
+		result = divInputs(a, b)
 	}
 	return result, nil
 }

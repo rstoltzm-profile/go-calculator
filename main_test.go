@@ -57,6 +57,77 @@ func TestMain(t *testing.T) {
 			t.Errorf("expected output to contain 'Output: 3', got %q", output)
 		}
 	})
+	t.Run("Check main 1-2=-1", func(t *testing.T) {
+		origArgs := os.Args
+		defer func() { os.Args = origArgs }()
+		os.Args = []string{
+			"test",
+			"--num1=1",
+			"--num2=2",
+			"--oper=sub",
+		}
+
+		// create a pipe to capture stdout
+		r, w, _ := os.Pipe()
+		os.Stdout = w
+		main()
+		w.Close()
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+
+		output := buf.String()
+		if !strings.Contains(output, "Output: -1") {
+			t.Errorf("expected output to contain 'Output: -1', got %q", output)
+		}
+	})
+
+	t.Run("Check main 2*2=4", func(t *testing.T) {
+		origArgs := os.Args
+		defer func() { os.Args = origArgs }()
+		os.Args = []string{
+			"test",
+			"--num1=2",
+			"--num2=2",
+			"--oper=mult",
+		}
+
+		// create a pipe to capture stdout
+		r, w, _ := os.Pipe()
+		os.Stdout = w
+		main()
+		w.Close()
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+
+		output := buf.String()
+		if !strings.Contains(output, "Output: 4") {
+			t.Errorf("expected output to contain 'Output: 4', got %q", output)
+		}
+	})
+
+	t.Run("Check main 4/2=2", func(t *testing.T) {
+		origArgs := os.Args
+		defer func() { os.Args = origArgs }()
+		os.Args = []string{
+			"test",
+			"--num1=4",
+			"--num2=2",
+			"--oper=div",
+		}
+
+		// create a pipe to capture stdout
+		r, w, _ := os.Pipe()
+		os.Stdout = w
+		main()
+		w.Close()
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+
+		output := buf.String()
+		if !strings.Contains(output, "Output: 2") {
+			t.Errorf("expected output to contain 'Output: 2', got %q", output)
+		}
+	})
 }
 
 func TestFlags(t *testing.T) {
