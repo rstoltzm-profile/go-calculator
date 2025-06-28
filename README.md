@@ -17,6 +17,8 @@
 ![Workflow Dispatch](docs/4-run-workflow.png)
 ### Workflow Run
 ![CICD](docs/4-build-art-run.png)
+### Autotest on Merge
+![Autotest](docs/4-build-and-test.png)
 
 ## Makefile
 ### Build
