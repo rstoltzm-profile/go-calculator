@@ -16,6 +16,7 @@ on:
           - "mult"
           - "div"
   
+run-name: calc ${{inputs.oper}} ${{inputs.num1}} and ${{inputs.num2}} run by @${{ github.actor }}
 
 jobs: 
   build-and-test:
