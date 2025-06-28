@@ -1,4 +1,4 @@
-name: Run binaries
+name: Run binaries with artifacts
 
 on:
   workflow_dispatch:
@@ -19,7 +19,31 @@ on:
 run-name: calc ${{inputs.oper}} ${{inputs.num1}} and ${{inputs.num2}} run by @${{ github.actor }}
 
 jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24'
+
+    - name: Install dependencies
+      run: go mod tidy
+
+    - name: Build binaries
+      run: make build
+
+    - name: Upload binary artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: go-calculator-linux
+        path: bin/go-calculator-linux
+
   run-app:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
