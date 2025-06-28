@@ -1,7 +1,10 @@
 # cli go-calculator
 
+![Workflow Dispatch](docs/4-run-workflow.png)
+![CICD](docs/4-build-art-run.png)
+
 * A simple calculator written in Go that supports addition, subtraction, multiplication, and division.
-* Project is focused on TDD, app design, and basic go CLI functionality.
+* Project is focused on TDD, app design, basic go CLI functionality, and CICD
 * See branches for code evolution and design changes.
 
 ## Inputs
