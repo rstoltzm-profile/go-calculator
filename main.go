@@ -52,3 +52,11 @@ func addInputs(a int, b int) int {
 func subInputs(a int, b int) int {
 	return a - b
 }
+
+func multInputs(a int, b int) int {
+	return a * b
+}
+
+func divInputs(a int, b int) int {
+	return a / b
+}
