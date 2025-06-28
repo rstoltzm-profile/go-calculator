@@ -51,7 +51,7 @@ func TestAdd(t *testing.T) {
 		got := addInputs(1, 1)
 		want := 2
 		if got != want {
-			t.Errorf("got %q want %q", got, want)
+			t.Errorf("got %v want %v", got, want)
 		}
 	})
 }

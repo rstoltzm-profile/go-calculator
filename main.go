@@ -10,6 +10,7 @@ func main() {
 	fmt.Println("GO Calculator App")
 	a, b, o, err := parseInputs()
 	fmt.Println(a, b, o, err)
+	addInputs(a, b)
 }
 
 func parseInputs() (int, int, string, error) {
@@ -42,4 +43,8 @@ func parseInputs() (int, int, string, error) {
 
 	return *a, *b, *o, nil
 
+}
+
+func addInputs(a int, b int) int {
+	return 0
 }
