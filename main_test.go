@@ -45,3 +45,13 @@ func TestFlags(t *testing.T) {
 		}
 	})
 }
+
+func TestAdd(t *testing.T) {
+	t.Run("Add 1 + 1", func(t *testing.T) {
+		got := addInputs(1, 1)
+		want := 2
+		if got != want {
+			t.Errorf("got %q want %q", got, want)
+		}
+	})
+}
