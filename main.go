@@ -60,6 +60,8 @@ func parseInputs() (int, int, string, error) {
 
 func operInputs(a int, b int, oper string) (int, error) {
 	var result int
+	var err error
+	err = nil
 	switch oper {
 	case "add":
 		result = addInputs(a, b)
@@ -68,9 +70,9 @@ func operInputs(a int, b int, oper string) (int, error) {
 	case "mult":
 		result = multInputs(a, b)
 	case "div":
-		result = divInputs(a, b)
+		result, err = divInputs(a, b)
 	}
-	return result, nil
+	return result, err
 }
 
 func addInputs(a int, b int) int {
@@ -85,6 +87,11 @@ func multInputs(a int, b int) int {
 	return a * b
 }
 
-func divInputs(a int, b int) int {
-	return a / b
+const ErrorDivideByZero = "Error: cannot divide by 0"
+
+func divInputs(a int, b int) (int, error) {
+	if b == 0 {
+		return 0, fmt.Errorf(ErrorDivideByZero)
+	}
+	return a / b, nil
 }

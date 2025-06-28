@@ -202,9 +202,16 @@ func TestMult(t *testing.T) {
 
 func TestDiv(t *testing.T) {
 	t.Run("Div: 1 / 1", func(t *testing.T) {
-		got := divInputs(1, 1)
+		got, _ := divInputs(1, 1)
 		want := 1
 		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Div: 1 / 0", func(t *testing.T) {
+		_, got := divInputs(1, 0)
+		want := fmt.Errorf(ErrorDivideByZero)
+		if got.Error() != want.Error() {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
