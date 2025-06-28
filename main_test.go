@@ -47,9 +47,19 @@ func TestFlags(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	t.Run("Add 1 + 1", func(t *testing.T) {
+	t.Run("Add: 1 + 1", func(t *testing.T) {
 		got := addInputs(1, 1)
 		want := 2
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+}
+
+func TestSub(t *testing.T) {
+	t.Run("Sub: 1 - 1", func(t *testing.T) {
+		got := subInputs(1, 1)
+		want := 0
 		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}
