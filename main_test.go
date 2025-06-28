@@ -198,6 +198,13 @@ func TestMult(t *testing.T) {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
+	t.Run("Mult: 0 * 1", func(t *testing.T) {
+		got := multInputs(0, 1)
+		want := 0
+		if got != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
 }
 
 func TestDiv(t *testing.T) {
@@ -212,6 +219,13 @@ func TestDiv(t *testing.T) {
 		_, got := divInputs(1, 0)
 		want := fmt.Errorf(ErrorDivideByZero)
 		if got.Error() != want.Error() {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("Div: 0 / 1", func(t *testing.T) {
+		got, _ := divInputs(0, 1)
+		want := 0
+		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
