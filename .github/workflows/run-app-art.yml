@@ -19,13 +19,19 @@ on:
 run-name: calc ${{inputs.oper}} ${{inputs.num1}} and ${{inputs.num2}} run by @${{ github.actor }}
 
 jobs: 
-  build-and-test:
+  run-app:
+    needs: build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: run binary
-      run: |
-        ${{ github.workspace }}/bin/go-calculator-linux --num1 "${{ inputs.num1 }}" --num2 "${{ inputs.num2 }}" --oper "${{ inputs.oper }}" 
+      - uses: actions/checkout@v4
 
+      - name: Download binary artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: go-calculator-linux
+          path: bin/
+
+      - name: Run binary
+        run: |
+          chmod +x bin/go-calculator-linux
+          ./bin/go-calculator-linux --num1 "${{ inputs.num1 }}" --num2 "${{ inputs.num2 }}" --oper "${{ inputs.oper }}"
